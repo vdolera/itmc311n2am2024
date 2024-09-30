@@ -6,7 +6,9 @@ const RegisterModel = require('./models/Register');
 
 const app = express();
 app.use(cors({
-    origin: ["https://vyv-imsu-client.vercel.app"],
+    origin: ["https://vyv-imsu-client.vercel.app", 
+             "https://vyv-imsu-client.vercel.app/register"
+],
     methods: ["POST", "GET"],
     credentials: true
 }));
@@ -22,12 +24,12 @@ mongoose.connect('mongodb+srv://vdolera:Integ2@imsu.pjwjc.mongodb.net/?retryWrit
 
 // Root Route
 app.get("/", (req, res) => {
-    res.json("Hello");
+    res.json("Server Running");
 });
 
 // Register Route
 app.post('/register', async (req, res) => {
-    const { username, email, password } = req.body;
+    const { userType, username, email, password } = req.body;
 
     try {
         // Check if user already exists
@@ -40,7 +42,7 @@ app.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create and save the new user
-        const newUser = await RegisterModel.create({ username, email, password, userType: hashedPassword });
+        const newUser = await RegisterModel.create({ userType, username, email, password: hashedPassword });
         return res.status(201).json({ message: "User registered successfully", user: newUser });
     } catch (err) {
         console.error("Error during registration:", err);

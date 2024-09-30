@@ -1,6 +1,6 @@
-// src/components/Login.js
 import { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../styles.css';
 
 function Login({ onLoginSuccess, navigate }) {
@@ -25,8 +25,7 @@ function Login({ onLoginSuccess, navigate }) {
             console.error('Login error:', err.response.data); // Log error response
             alert('Login failed, please check your credentials.');
         });
-};
-
+  };
 
   const togglePasswordVisibility = () => {
     const passwordInput = document.getElementById('password');
@@ -37,7 +36,7 @@ function Login({ onLoginSuccess, navigate }) {
   return (
     <div className="container">
       <div className="left-section">
-        <img src="logo.png" alt="IMS U Connect Logo" className="logo" />
+        <img src="/logo.svg" alt="IMS U Connect Logo" className="logo" />
         <div className="signup">
           <h2>Log In</h2>
           <div className="tabs">
@@ -91,12 +90,14 @@ function Login({ onLoginSuccess, navigate }) {
             </div>
             <button type="submit" className="btn btn-success w-100">Log In</button>
           </form>
-          <p className="login-link">Don't have an account? <a href="signup.html">Sign up</a></p>
+          <p className="login-link">
+            Don't have an account? <Link to="/register">Sign up</Link>
+          </p> {/* Changed to Link */}
         </div>
       </div>
       <div className="right-section">
-        <img src="glogo.png" alt="G Logo" className="g-logo" />
-        <img src="transparent.png" alt="Torch Icon" className="torch-icon" />
+        <img src="/glogo.svg" alt="G Logo" className="g-logo" />
+        <img src="/transparent.svg" alt="Torch Icon" className="torch-icon" />
         <div className="info">
           <h3>Intramural Management System for Universities</h3>
           <p>An all-in-one platform for team registrations, game scheduling, and live point tracking.</p>

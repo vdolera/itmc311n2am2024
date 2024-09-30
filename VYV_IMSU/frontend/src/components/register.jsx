@@ -1,21 +1,36 @@
-// src/components/Signup.js
 import { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../styles.css';
-
 
 function Signup() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('admin'); // 'admin' or 'user'
+  const [alertMessage, setAlertMessage] = useState(null); // State for alert message
+  const [alertType, setAlertType] = useState(''); // State for alert type ('success' or 'error')
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    // Assuming you want to send a post request with the collected data
+    // Reset the alert state
+    setAlertMessage(null);
+    setAlertType('');
+
+    // Send a POST request with the signup data
     axios.post('https://vyv-imsu-server.vercel.app/register', { email, username, password, userType })
-      .then(result => console.log(result))
-      .catch(err => console.log(err));
+      .then(result => {
+        console.log(result);
+        // Show success message
+        setAlertMessage('Registration successful!');
+        setAlertType('success');
+      })
+      .catch(err => {
+        console.log(err);
+        // Show error message
+        setAlertMessage('Registration failed. Please try again.');
+        setAlertType('error');
+      });
   };
 
   const togglePasswordVisibility = () => {
@@ -27,7 +42,7 @@ function Signup() {
   return (
     <div className="container">
       <div className="left-section">
-        <img src="logo.png" alt="IMS U Connect Logo" className="logo" />
+        <img src="logo.svg" alt="IMS U Connect Logo" className="logo" />
         <div className="signup">
           <h2>Sign Up</h2>
           <div className="tabs">
@@ -46,6 +61,12 @@ function Signup() {
               User
             </button>
           </div>
+          {/* Show alert message */}
+          {alertMessage && (
+            <div className={`alert ${alertType === 'success' ? 'alert-success' : 'alert-danger'}`}>
+              {alertMessage}
+            </div>
+          )}
           <form onSubmit={handleSignupSubmit}>
             <div className="mb-3">
               <input
@@ -86,12 +107,14 @@ function Signup() {
             </div>
             <button type="submit" className="btn btn-success w-100">Register</button>
           </form>
-          <p className="login-link">Already have an account? <a href="login.html">Log in</a></p>
+          <p className="login-link">
+            Already have an account? <Link to="/">Log in</Link> {/* Changed to Link */}
+          </p>
         </div>
       </div>
       <div className="right-section">
-        <img src="glogo.png" alt="G Logo" className="g-logo" />
-        <img src="transparent.png" alt="Torch Icon" className="torch-icon" />
+        <img src="glogo.svg" alt="G Logo" className="g-logo" />
+        <img src="transparent.svg" alt="Torch Icon" className="torch-icon" />
         <div className="info">
           <h3>Intramural Management System for Universities</h3>
           <p>An all-in-one platform for team registrations, game scheduling, and live point tracking.</p>
