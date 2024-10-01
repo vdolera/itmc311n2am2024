@@ -1,15 +1,18 @@
+//IMSU 22
+//Registration page where regular users and admins must register first before they can login
+
 import { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import '../styles.css';
 
 function Signup() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('admin'); // 'admin' or 'user'
-  const [alertMessage, setAlertMessage] = useState(null); // State for alert message
-  const [alertType, setAlertType] = useState(''); // State for alert type ('success' or 'error')
+  const [userType, setUserType] = useState('user'); // 'admin/default' or 'user'
+  const [alertMessage, setAlertMessage] = useState(null); // message
+  const [alertType, setAlertType] = useState(''); // alert type ('success' or 'error')
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
@@ -105,10 +108,10 @@ function Signup() {
                 &#128065;
               </button>
             </div>
-            <button type="submit" className="btn btn-success w-100">Register</button>
+            <button type="submit" className="btn-btn-success-w-100">Register</button>
           </form>
           <p className="login-link">
-            Already have an account? <Link to="/">Log in</Link> {/* Changed to Link */}
+            Already have an account? <Link to="/">Log in</Link> 
           </p>
         </div>
       </div>

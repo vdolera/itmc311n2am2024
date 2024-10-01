@@ -1,3 +1,6 @@
+//IMSU-26
+//MongoDB server that are connected to our deployed app
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -7,7 +10,8 @@ const RegisterModel = require('./models/Register');
 const app = express();
 app.use(cors({
     origin: ["https://vyv-imsu-client.vercel.app", 
-             "https://vyv-imsu-client.vercel.app/register"
+             "https://vyv-imsu-client.vercel.app/register",
+             "http://localhost:4173"
 ],
     methods: ["POST", "GET"],
     credentials: true
@@ -22,7 +26,7 @@ mongoose.connect('mongodb+srv://vdolera:Integ2@imsu.pjwjc.mongodb.net/?retryWrit
 .then(() => console.log('MongoDB connected'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
-// Root Route
+// Server Status and the main page :3
 app.get("/", (req, res) => {
     res.json("Server Running");
 });
@@ -38,7 +42,7 @@ app.post('/register', async (req, res) => {
             return res.status(400).json({ message: "User already exists" });
         }
 
-        // Hash password before saving
+        // Encrypt or Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create and save the new user
@@ -52,13 +56,18 @@ app.post('/register', async (req, res) => {
 
 // Login Route
 app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, userType } = req.body;
 
     try {
         // Check if user exists
         const user = await RegisterModel.findOne({ email });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
+        }
+
+        //Check userType
+        if(user.userType !== userType) {
+            return res.status(404).json({ message: "Unauthorized access" });
         }
 
         // Validate password

@@ -1,28 +1,31 @@
+//IMSU-23
+//Login Page where user types their registered details to login
+
 import { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import '../styles.css';
 
 function Login({ onLoginSuccess, navigate }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('admin'); // Tracks which tab is active (admin/user)
+  const [userType, setUserType] = useState('user'); // 'admin/default' or 'user'
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     axios.post('https://vyv-imsu-server.vercel.app/login', { email, password, userType })
         .then(result => {
-            console.log('Server response:', result); // Log the server response
+            console.log('Server response:', result); // Log the server 
             if (result.data.user) {  // Check if user data is present
                 alert('Login successful!');
-                onLoginSuccess(result.data.user); // Notify parent component of successful login
+                onLoginSuccess(result.data.user); //notification
                 navigate('/home'); // Navigate to home page
             } else {
-                alert('Login failed, no user returned.'); // Alert if user not present
+                alert('Login failed, no user returned.'); 
             }
         })
         .catch(err => {
-            console.error('Login error:', err.response.data); // Log error response
+            console.error('Login error:', err.response.data);
             alert('Login failed, please check your credentials.');
         });
   };
@@ -88,11 +91,11 @@ function Login({ onLoginSuccess, navigate }) {
               </label>
               <a href="#" className="forgot-password">Forgot Password?</a>
             </div>
-            <button type="submit" className="btn btn-success w-100">Log In</button>
+            <button type="submit" className="btn-btn-success-w-100">Log In</button>
           </form>
           <p className="login-link">
             Don't have an account? <Link to="/register">Sign up</Link>
-          </p> {/* Changed to Link */}
+          </p>
         </div>
       </div>
       <div className="right-section">
