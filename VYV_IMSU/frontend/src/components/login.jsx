@@ -9,13 +9,13 @@ import '../styles.css';
 function Login({ onLoginSuccess, navigate }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('user'); // 'admin/default' or 'user'
+  const [userType, setUserType] = useState('admin'); // 'admin/default' or 'user'
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     axios.post('https://vyv-imsu-server.vercel.app/login', { email, password, userType })
         .then(result => {
-            console.log('Server response:', result); // Log the server 
+            console.log('Server response:', result); // Log info for the server 
             if (result.data.user) {  // Check if user data is present
                 alert('Login successful!');
                 onLoginSuccess(result.data.user); //notification

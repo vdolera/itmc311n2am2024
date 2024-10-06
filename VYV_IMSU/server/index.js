@@ -26,7 +26,7 @@ mongoose.connect('mongodb+srv://vdolera:Integ2@imsu.pjwjc.mongodb.net/?retryWrit
 .then(() => console.log('MongoDB connected'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
-// Server Status and the main page :3
+// Server Status :3
 app.get("/", (req, res) => {
     res.json("Server Running");
 });
@@ -76,12 +76,13 @@ app.post('/login', async (req, res) => {
             return res.status(401).json({ message: "Invalid email or password" });
         }
 
-        // Respond with a success message and user information
+        // Respond with a success message and pass user information to the client
         return res.status(200).json({ 
             message: "Login successful",
             user: { 
                 userId: user._id, 
-                email: user.email 
+                email: user.email, 
+                username: user.username
             } 
         });
     } catch (err) {
@@ -91,7 +92,7 @@ app.post('/login', async (req, res) => {
 });
 
 
-// Start the server
+// Start the local server
 app.listen(3001, () => {
     console.log("Server is running on port 3001");
 });

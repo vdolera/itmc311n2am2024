@@ -1,4 +1,4 @@
-//IMSU 22
+//IMSU-22
 //Registration page where regular users and admins must register first before they can login
 
 import { useState } from 'react';
@@ -10,9 +10,9 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('user'); // 'admin/default' or 'user'
-  const [alertMessage, setAlertMessage] = useState(null); // message
-  const [alertType, setAlertType] = useState(''); // alert type ('success' or 'error')
+  const [userType, setUserType] = useState('admin'); // 'admin/default' or 'user'
+  const [alertMessage, setAlertMessage] = useState(null); // alert message
+  const [alertType, setAlertType] = useState(''); // alert type 
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ function Signup() {
     setAlertMessage(null);
     setAlertType('');
 
-    // Send a POST request with the signup data
+    // Send a POST request with the signup details
     axios.post('https://vyv-imsu-server.vercel.app/register', { email, username, password, userType })
       .then(result => {
         console.log(result);
