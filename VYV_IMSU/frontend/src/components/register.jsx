@@ -28,6 +28,8 @@ function Signup() {
         setAlertMessage('Registration successful!');
         setAlertType('success');
       })
+     .catch(err => {
+      console.log(err);
       if (err.response) {
         const { status, data } = err.response;
         if (status === 400) {
