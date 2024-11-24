@@ -63,7 +63,7 @@ function TeamPage({ user, setUser }) {
   };
 
   const handleEditToggle = () => {
-    setIsEditing((prev) => !prev); // Toggle editing state
+    setIsEditing((prev) => !prev); 
   };
 
   const handleLogout = () => {
@@ -105,7 +105,6 @@ function TeamPage({ user, setUser }) {
                             <option value="100">100</option>
                         </select>
                     <label for="entries">entries</label>
-                    <input type="text" id="search-bar" placeholder="Search..."/>
                 </div>
 
                 <button className="edit-button" onClick={handleEditToggle}>
