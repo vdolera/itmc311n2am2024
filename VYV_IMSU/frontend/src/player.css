@@ -42,16 +42,11 @@
     padding: 8px 15px;
     border-radius: 50px;
     transition: background-color 0.3s;
-    font-size: 0.9em;
 }
 
-.nav-link.active, .nav-link:hover, .bottom-link:hover, .bottom-link-btn:hover {
+.nav-link.active, .nav-link:hover, .bottom-link:hover {
     background-color: #F3DF7B;
     color: #131931;
-}
-
-.ph-light {
-    margin-right: 10px;
 }
 
 .main-content {
@@ -59,22 +54,18 @@
     padding: 20px;
     background-color: #FFFFFF;
     color: #333;
-    width: calc(100vw - 270px);
-}
-
-.header-title {
-    font-size: 24px; 
-    padding-bottom: 10px; 
-    margin-bottom: 30px; 
-    border-bottom: 2px solid #ddd; 
-}
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; 
 
 .player-table {
-    margin-top: 30px; 
+    flex-grow: 1; 
+    margin-top: 30px;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; 
 }
 
 .table-controls {
@@ -85,72 +76,49 @@
     margin-bottom: 20px;
 }
 
-.entries {
+.filter {
     display: flex;
     align-items: center;
+    gap: 10px; 
+    flex: 1;
 }
 
-.entries label, .entries select, .search input[type="text"] {
-    margin-right: 10px;
-}
-
-.entries select {
-    background-color: #EEE;
-    border: none;
-    padding: 8px;
-    border-radius: 4px;
-}
-
-.search {
+.filter select {
+    background-color: #FFFFFF;
+    border: 1px solid #DDD;
+    padding: 8px 10px;
+    border-radius: 20px; 
+    color: #333;
+    font-size: 0.9em;
     flex-grow: 1;
-    max-width: 300px;
-    margin-left: 20px;
 }
 
-.search input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.filter button {
+    background-color: #F3DF7B; 
+    color: #131931; 
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px; 
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
 }
 
-.add-button {
-    display: flex;
-    justify-content: flex-end;
+.filter button:hover {
+    background-color: #E6C065; 
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
+    table-layout: auto; 
 }
 
 th, td {
     text-align: center;
     padding: 12px;
     border-bottom: 1px solid #ddd;
-}
-
-tr:hover {
-    background-color: #f5f5f5;
-}
-
-.edit-button, .view-button {
-    background-color: #131931;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.edit-button:hover, .view-button:hover {
-    background-color: #F3DF7B;
+    white-space: nowrap; 
 }
 
 .pagination {
@@ -177,14 +145,14 @@ tr:hover {
 }
 
 .bottom-links button.bottom-link {
-    background: none;       
-    border: none;            
-    outline: none;       
-    box-shadow: none;       
-    color: #FFFFFF;        
-    padding: 8px 15px;     
-    border-radius: 50px;    
-    cursor: pointer;       
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #FFFFFF;
+    padding: 8px 15px;
+    border-radius: 50px;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
