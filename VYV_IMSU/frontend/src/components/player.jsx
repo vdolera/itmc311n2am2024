@@ -80,6 +80,7 @@ function Player({ user, setUser }) {
                     <button onClick={handleLogout} className="bottom-link"><i className="ph-light ph-sign-out"></i> Logout</button>
                 </div>
             </aside>
+            
             <div className="main-content">
                 <h1>Player Management | Hello, {user.username}!</h1>
                 <div className="player-table">
@@ -121,6 +122,7 @@ function Player({ user, setUser }) {
                             <button onClick={applyFilters} className="filter-btn">Filter</button>
                         </div>
                     </div>
+                    
                     <table>
                         <thead>
                             <tr>
