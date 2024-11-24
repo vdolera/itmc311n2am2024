@@ -1,17 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../player.css';
 
 function Player({ user, setUser }) {
     const navigate = useNavigate();
+    const [filters, setFilters] = useState({
+        yearLevel: '',
+        college: '',
+        event: '',
+        role: ''
+    });
 
-  const handleLogout = () => {
-    setUser(null); // Clear user
-    localStorage.removeItem('user');
-    navigate('/'); // Redirect to the login page
-  };
+    const [currentPage, setCurrentPage] = useState(1);
+    const [entriesPerPage] = useState(10);
+
+    const [filteredData, setFilteredData] = useState([]);
+    const [isFiltered, setIsFiltered] = useState(false);
+
+    const tableData = [
+        { name: "Yuan Piamonte", year: "3rd Year", gender: "Male", college: "COCS", event: "Volleyball", role: "Player", email: "ypiamonte@gbox.adnu.edu.ph" },
+        { name: "Vivianne Alano", year: "3rd Year", gender: "Female", college: "COCS", event: "N/A", role: "N/A", email: "vfalano@gbox.adnu.edu.ph" },
+        { name: "Vincent Dolera", year: "3rd Year", gender: "Male", college: "COCS", event: "N/A", role: "N/A", email: "vdolera@gbox.adnu.edu.ph" },
+        { name: "Dwayne Jacar", year: "3rd Year", gender: "Male", college: "ANSA", event: "N/A", role: "N/A", email: "djacar@gbox.adnu.edu.ph" },
+        { name: "Kelly Buenafe", year: "3rd Year", gender: "Female", college: "JPIA", event: "Swimming", role: "Player", email: "fybuenafe@gbox.adnu.edu.ph" },
+        { name: "James Aguilar", year: "3rd Year", gender: "Male", college: "COCS", event: "N/A", role: "N/A", email: "jaguilar@gbox.adnu.edu.ph" },
+        { name: "Breech Fernandez", year: "3rd Year", gender: "Male", college: "ANSA", event: "Basketball", role: "Player", email: "brfernandez@gbox.adnu.edu.ph" }
+    ];
+
+    const handleLogout = () => {
+        setUser(null);
+        localStorage.removeItem('user');
+        navigate('/');
+    };
+
+    const handleFilterChange = (e) => {
+        setFilters({
+            ...filters,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const applyFilters = () => {
+        const filtered = tableData.filter(row => {
+            return (
+                (!filters.yearLevel || row.year === filters.yearLevel) &&
+                (!filters.college || row.college === filters.college) &&
+                (!filters.event || row.event === filters.event) &&
+                (!filters.role || row.role === filters.role)
+            );
+        });
+        setIsFiltered(true);
+        setFilteredData(filtered);
+        setCurrentPage(1); 
+    };
+
+    // Pagination
+    const indexOfLastEntry = currentPage * entriesPerPage;
+    const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+    const currentEntries = isFiltered ? filteredData.slice(indexOfFirstEntry, indexOfLastEntry) : tableData.slice(indexOfFirstEntry, indexOfLastEntry);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const totalPages = isFiltered ? Math.ceil(filteredData.length / entriesPerPage) : Math.ceil(tableData.length / entriesPerPage);
+
     return (
-      <div className='body'>
+        <div className='body'>
             <aside className="sidebar">
                 <h3>Intramurals Management System</h3>
                 <ul className="nav">
@@ -23,69 +75,98 @@ function Player({ user, setUser }) {
                     <li><Link to="/scores" className="nav-link"><i className="ph-light ph-chart-line"></i> Live Scores</Link></li>
                     <li><Link to="/registration" className="nav-link"><i className="ph-light ph-pencil-simple-line"></i> Registration</Link></li>
                 </ul>
-
                 <div className="bottom-links">
                     <Link to="/settings" className="bottom-link"><i className="ph-light ph-gear"></i> Settings</Link>
                     <button onClick={handleLogout} className="bottom-link"><i className="ph-light ph-sign-out"></i> Logout</button>
                 </div>
             </aside>
-            
             <div className="main-content">
                 <h1>Player Management | Hello, {user.username}!</h1>
                 <div className="player-table">
                     <div className="table-controls">
-                        <div className="entries">
-                            <label htmlFor="show-entries">Show</label>
-                            <select id="show-entries">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
+                        <div className="filter">
+                            <select name="yearLevel" value={filters.yearLevel} onChange={handleFilterChange}>
+                                <option value="">Year Level</option>
+                                <option value="1st Year">1st Year</option>
+                                <option value="2nd Year">2nd Year</option>
+                                <option value="3rd Year">3rd Year</option>
+                                <option value="4th Year">4th Year</option>
                             </select>
-                            <label>entries</label>
-                        </div>
-                        <div className="search">
-                            <input type="text" placeholder="Search..." />
-                        </div>
-                        <div className="add-button">
-                            <button className="edit-button">+ Edit Player</button>
+                            <select name="college" value={filters.college} onChange={handleFilterChange}>
+                                <option value="">College</option>
+                                <option value="ANSA">ANSA</option>
+                                <option value="COCS">COCS</option>
+                                <option value="COL">COL</option>
+                                <option value="JPIA">JPIA</option>
+                                <option value="ABBS">ABBS</option>
+                                <option value="AXI">AXI</option>
+                                <option value="ACHSS">ACHSS</option>
+                                <option value="STEP">STEP</option>
+                            </select>
+                            <select name="event" value={filters.event} onChange={handleFilterChange}>
+                                <option value="">Event</option>
+                                <option value="Basketball">Basketball</option>
+                                <option value="Volleyball">Volleyball</option>
+                                <option value="LITMUSDA">LITMUSDA</option>
+                                <option value="Swimming">Swimming</option>
+                                <option value="Table Tennis">Table Tennis</option>
+                            </select>
+                            <select name="role" value={filters.role} onChange={handleFilterChange}>
+                                <option value="">Role</option>
+                                <option value="Player">Player</option>
+                                <option value="Volunteer">Volunteer</option>
+                                <option value="Manager">Manager</option>
+                                <option value="N/A">N/A</option>
+                            </select>
+                            <button onClick={applyFilters} className="filter-btn">Filter</button>
                         </div>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Player</th>
-                                <th>Team</th>
-                                <th>Profile</th>
+                                <th>Name</th>
+                                <th>Year-Level</th>
+                                <th>Gender</th>
+                                <th>College</th>
+                                <th>Event</th>
+                                <th>Role</th>
+                                <th>Email</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Yuan Piamonte</td>
-                                <td>COCS</td>
-                                <td><button className="view-button">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Vincent Dolera</td>
-                                <td>COCS</td>
-                                <td><button className="view-button">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Vivianne Alano</td>
-                                <td>COCS</td>
-                                <td><button className="view-button">View</button></td>
-                            </tr>
+                            {currentEntries.length > 0 ? currentEntries.map((row, index) => (
+                                <tr key={index}>
+                                    <td>{row.name}</td>
+                                    <td>{row.year}</td>
+                                    <td>{row.gender}</td>
+                                    <td>{row.college}</td>
+                                    <td>{row.event}</td>
+                                    <td>{row.role}</td>
+                                    <td>{row.email}</td>
+                                </tr>
+                            )) : (
+                                <tr>
+                                    <td colSpan="7">No results found.</td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                     <div className="pagination">
-                        <button>Previous</button>
-                        <button>1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button>Next</button>
+                        {currentPage > 1 && (
+                            <button onClick={() => paginate(currentPage - 1)}>Previous</button>
+                        )}
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+                            <button key={number} onClick={() => paginate(number)} className={number === currentPage ? 'active' : ''}>
+                                {number}
+                            </button>
+                        ))}
+                        {currentPage < totalPages && (
+                            <button onClick={() => paginate(currentPage + 1)}>Next</button>
+                        )}
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     );
 }
 
