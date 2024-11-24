@@ -33,7 +33,7 @@ function Signup() {
       if (err.response) {
         const { status, data } = err.response;
         if (status === 400) {
-          if (data.email === 'Email already exists') {
+          if (data.message === 'Email already exists') {
             setAlertMessage('This email is already registered. Please use a different email.');
           } else if (data.message === 'Password too short') {
             setAlertMessage('Password is too short. Please use at least 6 characters.');
