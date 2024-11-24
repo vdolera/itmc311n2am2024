@@ -1,4 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
+
+const DynamicTable = () => {
+    const [numColumns, setNumColumns] = useState(0);
+}
 
 
 function Teams () {
