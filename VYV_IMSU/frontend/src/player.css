@@ -69,6 +69,10 @@
     overflow-x: auto; 
 }
 
+.table-header {
+    background-color: #F7F6FE;
+}
+
 .table-controls {
     display: flex;
     justify-content: space-between;

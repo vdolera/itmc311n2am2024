@@ -125,7 +125,7 @@ function Player({ user, setUser }) {
                     
                     <table>
                         <thead>
-                            <tr>
+                            <tr className="table-header">
                                 <th>Name</th>
                                 <th>Year-Level</th>
                                 <th>Gender</th>
