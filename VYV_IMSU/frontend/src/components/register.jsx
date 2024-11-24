@@ -28,13 +28,26 @@ function Signup() {
         setAlertMessage('Registration successful!');
         setAlertType('success');
       })
-      .catch(err => {
-        console.log(err);
-        // Show error message
-        setAlertMessage('Registration failed. Please try again.');
-        setAlertType('error');
-      });
-  };
+      if (err.response) {
+        const { status, data } = err.response;
+        if (status === 400) {
+          if (data.message === 'Email already exists') {
+            setAlertMessage('This email is already registered. Please use a different email.');
+          } else if (data.message === 'Password too short') {
+            setAlertMessage('Password is too short. Please use at least 6 characters.');
+          } else {
+            setAlertMessage('Registration failed. Please try again.');
+          }
+        } else {
+          setAlertMessage('An unexpected error occurred. Please try again later.');
+        }
+      } else {
+        setAlertMessage('Unable to connect to the server. Please check your network.');
+      }
+
+      setAlertType('error');
+    });
+};
 
   const togglePasswordVisibility = () => {
     const passwordInput = document.getElementById('password');
