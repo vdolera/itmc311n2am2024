@@ -13,7 +13,7 @@ function Login({ onLoginSuccess, navigate }) {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://imsu-server.vercel.app/login', { email, password, userType })
+    axios.post('https://vyv-imsu-server.vercel.app/login', { email, password, userType })
         .then(result => {
             console.log('Server response:', result); // Log info for the server 
             if (result.data.user) {  // Check if user data is present
