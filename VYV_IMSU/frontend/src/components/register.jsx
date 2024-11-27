@@ -1,7 +1,5 @@
-//IMSU-22
-//Registration page where regular users and admins must register first before they can login
-
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../styles.css';
@@ -12,7 +10,8 @@ function Signup() {
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('admin'); // 'admin/default' or 'user'
   const [alertMessage, setAlertMessage] = useState(null); // alert message
-  const [alertType, setAlertType] = useState(''); // alert type 
+  const [alertType, setAlertType] = useState(''); // alert type
+  const navigate = useNavigate(); // Initialize navigate function
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
@@ -27,29 +26,33 @@ function Signup() {
         // Show success message
         setAlertMessage('Registration successful!');
         setAlertType('success');
+        // Redirect to the login screen after a delay
+        setTimeout(() => {
+          navigate('/'); // Redirect to login screen
+        }, 1500); // 1.5-second delay
       })
-     .catch(err => {
-      console.log(err);
-      if (err.response) {
-        const { status, data } = err.response;
-        if (status === 400) {
-          if (data.email === 'Email already exists') {
-            setAlertMessage('This email is already registered. Please use a different email.');
-          } else if (data.message === 'Password too short') {
-            setAlertMessage('Password is too short. Please use at least 6 characters.');
+      .catch(err => {
+        console.log(err);
+        if (err.response) {
+          const { status, data } = err.response;
+          if (status === 400) {
+            if (data.email === 'Email already exists') {
+              setAlertMessage('This email is already registered. Please use a different email.');
+            } else if (data.message === 'Password too short') {
+              setAlertMessage('Password is too short. Please use at least 6 characters.');
+            } else {
+              setAlertMessage('Registration failed. Please try again.');
+            }
           } else {
-            setAlertMessage('Registration failed. Please try again.');
+            setAlertMessage('An unexpected error occurred. Please try again later.');
           }
         } else {
-          setAlertMessage('An unexpected error occurred. Please try again later.');
+          setAlertMessage('Unable to connect to the server. Please check your network.');
         }
-      } else {
-        setAlertMessage('Unable to connect to the server. Please check your network.');
-      }
 
-      setAlertType('error');
-    });
-};
+        setAlertType('error');
+      });
+  };
 
   const togglePasswordVisibility = () => {
     const passwordInput = document.getElementById('password');
@@ -126,7 +129,7 @@ function Signup() {
             <button type="submit" className="btn-btn-success-w-100">Register</button>
           </form>
           <p className="login-link">
-            Already have an account? <Link to="/">Log in</Link> 
+            Already have an account? <Link to="/">Log in</Link>
           </p>
         </div>
       </div>
