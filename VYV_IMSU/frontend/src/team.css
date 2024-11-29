@@ -1,10 +1,4 @@
-/* Global Reset and Box Model */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
+
 
 body, html {
     height: 100%;
@@ -49,14 +43,14 @@ body, html {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow-x: auto; /* Ensure horizontal scrolling for large tables */
+    overflow-x: auto;
 }
 
 /* Table Styles */
 .player-table table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
+    table-layout: auto;
     max-width: 100%;
 }
 
@@ -64,22 +58,31 @@ body, html {
     background-color: #F7F6FE;
 }
 
+td {
+    padding: 10px;
+    text-align: left;
+}
+
 th, td {
-    text-align: center;
+    text-align: left;
     border-bottom: 1px solid #ddd;
     word-wrap: break-word;
-    white-space: nowrap;
+    white-space: normal;
     padding: 10px;
-    margin: 5px;
+}
+
+td:first-child, th:first-child {
+    width: 500px;
+    max-width: 500px;
 }
 
 td input[type="text"]{
-    width: 25%;
-    height: 23px;
+    width: 20px;
+    height: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    text-align: center;
+    text-align: left;
     font-size: inherit;
     margin: 0;
 }
@@ -111,33 +114,6 @@ td input[type="text"]{
 
 .edit-button:hover {
     background-color: #E6C065;
-}
-
-/* Show Filter Controls */
-.show-filter {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Reduced gap for better alignment */
-}
-
-.show-filter select {
-    background-color: #FFFFFF; /* Added consistent background */
-    border: 1px solid #ccc; /* Defined border for visibility */
-    padding: 5px 10px;
-    font-size: 14px;
-    color: #000000;
-    border-radius: 5px; /* Rounded corners for consistency */
-}
-
-/* Search Bar */
-.search-bar input {
-    background-color: #FFFFFF; /* Added consistent background */
-    border: 1px solid #ccc; /* Defined border for better visibility */
-    padding: 5px 10px;
-    font-size: 14px;
-    color: #000000;
-    width: 200px;
-    border-radius: 5px;
 }
 
 /* Responsive Adjustments */

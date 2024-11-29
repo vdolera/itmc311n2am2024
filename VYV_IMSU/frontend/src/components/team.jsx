@@ -80,7 +80,6 @@ function TeamPage({ user, setUser }) {
           <li><Link to="/home" className="nav-link"><i className="ph-light ph-house"></i> Dashboard</Link></li>
           <li><Link to="/player" className="nav-link "><i className="ph-light ph-user-focus"></i> Player</Link></li>
           <li><Link to="/team" className="nav-link active"><i className="ph-light ph-users-three"></i> Team</Link></li>
-          <li><Link to="/coach" className="nav-link"><i className="ph-light ph-megaphone"></i> Coach</Link></li>
           <li><Link to="/game" className="nav-link"><i className="ph-light ph-fire"></i> Game</Link></li>
           <li><Link to="/scores" className="nav-link"><i className="ph-light ph-chart-line"></i> Live Scores</Link></li>
           <li><Link to="/registration" className="nav-link"><i className="ph-light ph-pencil-simple-line"></i> Registration</Link></li>
@@ -96,19 +95,8 @@ function TeamPage({ user, setUser }) {
 
         <div className="player-table">
             <div className="table-controls">
-                <div class="show-filter">
-                    <label for="show">Show:</label>
-                        <select id="show">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                    <label for="entries">entries</label>
-                </div>
-
                 <button className="edit-button" onClick={handleEditToggle}>
-                {isEditing ? 'Save Changes' : 'Edit'}
+                {isEditing ? 'Save Changes' : 'Edit Table'}
                 </button>
             </div>
 
