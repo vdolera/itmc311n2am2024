@@ -38,7 +38,7 @@ function Signup() {
           const { status, data } = err.response;
           if (status === 400 && data.message === 'User already exists') {
             setAlertMessage('This email is already registered. Please use a different email.');
-          } else if (status === 400 && data.message === 'Password too short') { // Optional, if added on the server
+          } else if (status === 400 && data.message === 'Password too short') { 
             setAlertMessage('Password is too short. Please use at least 6 characters.');
           } else if (status === 500) {
             setAlertMessage('Internal server error. Please try again later.');

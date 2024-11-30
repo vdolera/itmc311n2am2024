@@ -1,5 +1,5 @@
 import React from 'react';
-
+import underMaintenanceGif from '../assets/undermaintenance.gif'; 
 
 function Registration () {
     return (
