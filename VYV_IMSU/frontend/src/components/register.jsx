@@ -32,26 +32,23 @@ function Signup() {
         }, 1500); // 1.5-second delay
       })
       .catch(err => {
-        console.log(err);
+        console.log('Error response:', err.response);
+      
         if (err.response) {
           const { status, data } = err.response;
-          if (status === 400) {
-            if (data.email === 'Email already exists') {
-              setAlertMessage('This email is already registered. Please use a different email.');
-            } else if (data.message === 'Password too short') {
-              setAlertMessage('Password is too short. Please use at least 6 characters.');
-            } else {
-              setAlertMessage('Registration failed. Please try again.');
-            }
+          if (status === 400 && data.message === 'User already exists') {
+            setAlertMessage('This email is already registered. Please use a different email.');
+          } else if (status === 400 && data.message === 'Password too short') { // Optional, if added on the server
+            setAlertMessage('Password is too short. Please use at least 6 characters.');
+          } else if (status === 500) {
+            setAlertMessage('Internal server error. Please try again later.');
           } else {
-            setAlertMessage('An unexpected error occurred. Please try again later.');
+            setAlertMessage('Registration failed. Please try again.');
           }
         } else {
-          setAlertMessage('Unable to connect to the server. Please check your network.');
+          setAlertMessage('Could not connect to the server. Please check your connection.');
         }
-
-        setAlertType('error');
-      });
+      });      
   };
 
   const togglePasswordVisibility = () => {

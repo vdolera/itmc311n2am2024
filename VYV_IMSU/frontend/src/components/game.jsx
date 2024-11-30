@@ -2,9 +2,14 @@ import React from 'react';
 
 
 function Game () {
-    return(
-        <div>
-            <img src="/stop.webp" alt="stop" />
+    return (
+        <div className="maintenance-container">
+            <img 
+                src={underMaintenanceGif} 
+                alt="Under Maintenance GIF" 
+                className="maintenance-gif" 
+            />
+            <div className="maintenance-text">Under Maintenance</div>
         </div>
     );
 }
