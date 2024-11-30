@@ -78,7 +78,7 @@ function Home({ user, setUser }) {
           <li><Link to="/registration" className="nav-link"><i className="ph-light ph-pencil-simple-line"></i> Registration</Link></li>
         </ul>
         <div className="bottom-links">
-          <Link to="/settings." className="bottom-link"><i className="ph-light ph-gear"></i> Settings</Link>
+          <Link to="/settings" className="bottom-link"><i className="ph-light ph-gear"></i> Settings</Link>
           <button onClick={handleLogout} className="bottom-link"><i className="ph-light ph-sign-out"></i> Logout</button>
         </div>
       </aside>
