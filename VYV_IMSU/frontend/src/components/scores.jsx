@@ -1,5 +1,4 @@
 import React from 'react';
-import './scores.css'; // Import a separate CSS file for styling
 import underMaintenanceGif from '../assets/undermaintenance.gif'; // Import the GIF correctly
 
 function Scores() {

@@ -4,7 +4,6 @@ import Register from './components/register';
 import Home from './components/home'; 
 import Player from './components/player';
 import Teams from './components/team';
-import Coach from './components/coach';
 import Game from './components/game'; 
 import Scores from './components/scores'; 
 import Registration from './components/registration'; 
@@ -50,9 +49,6 @@ function App() {
         
         {/* Route for Team page */}
         <Route path="/team" element={user ? <Teams user={user} setUser={setUser} onLogout={handleLogout}/> : <Navigate to="/" />} />
-
-        {/* Route for Coach page */}
-        <Route path="/coach" element={user ? <Coach user={user} setUser={setUser} onLogout={handleLogout}/> : <Navigate to="/" />} />
 
         {/* Route for Game page */}
         <Route path="/game" element={user ? <Game user={user} setUser={setUser} onLogout={handleLogout}/> : <Navigate to="/" />} />
