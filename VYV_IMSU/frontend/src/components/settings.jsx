@@ -1,6 +1,6 @@
 import React from 'react';
 import underMaintenanceGif from '../assets/undermaintenance.gif'; 
-import '../maintenance.css';
+
 
 function Settings () {
     return (
