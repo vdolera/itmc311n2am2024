@@ -20,7 +20,7 @@ function Signup() {
     setAlertType('');
 
     // Send a POST request with the signup details
-    axios.post('https://vyv-imsu-server.vercel.app/register', { email, username, password, userType })
+    axios.post('https://vyv-imsu-server.vercel.app/register', { email, username, password, userType }) //Use this for local'http://localhost:3001/register'
       .then(result => {
         console.log(result);
         // Show success message

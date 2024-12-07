@@ -9,8 +9,10 @@ const RegisterModel = require('./models/Register');
 
 const app = express();
 app.use(cors({
-    origin: ["https://vyv-imsu.vercel.app",
+    origin: ["https://vyv-imsu.vercel.app", 
              "https://vyv-imsu.vercel.app/register",
+             "http://localhost:5173/register", // change the number into ur localhost
+             "http://localhost:5173" // change the number into ur localhost
 ],
     methods: ["POST", "GET"],
     credentials: true
@@ -39,6 +41,11 @@ app.post('/register', async (req, res) => {
         const existingUser = await RegisterModel.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "User already exists" });
+        }
+
+        // Validate password length
+        if (password.length < 6) {
+            return res.status(400).json({ message: "Password too short" });
         }
 
         // Encrypt or Hash password
