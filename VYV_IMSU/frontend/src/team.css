@@ -1,5 +1,3 @@
-
-
 body, html {
     height: 100%;
     background-color: #F3F3F3;
@@ -119,20 +117,20 @@ td input[type="text"]{
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .sidebar {
-        width: 200px; /* Adjust sidebar width for smaller screens */
+        width: 200px;
     }
 
     .player-table {
         margin-top: 20px;
-        padding: 10px; /* Reduced padding for smaller screens */
+        padding: 10px;
     }
 
     .table-controls {
-        flex-direction: column; /* Stack controls vertically */
+        flex-direction: column;
         gap: 10px;
     }
 
     .edit-button {
-        padding: 8px 15px; /* Reduce button size for smaller screens */
+        padding: 8px 15px;
     }
 }
