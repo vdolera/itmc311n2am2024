@@ -35,7 +35,7 @@ function Home({ user, setUser }) {
   // Fetch events from backend
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/events');
+      const response = await axios.get('https://db-server-dun.vercel.app/events');
       setEvents(response.data);
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -50,7 +50,7 @@ function Home({ user, setUser }) {
   const handleEventSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/add-event', eventDetails);
+      await axios.post('https://db-server-dun.vercel.app/add-event', eventDetails);
       alert('Event added successfully!');
       setShowOverlay(false);
       setEventDetails({ title: '', description: '', date: '', time: '' });

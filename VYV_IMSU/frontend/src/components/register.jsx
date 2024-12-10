@@ -20,7 +20,7 @@ function Signup() {
     setAlertType('');
 
     // Send a POST request with the signup details
-    axios.post('http://localhost:3001/register', { email, username, password, userType }) //Use this for local'http://localhost:3001/register'
+    axios.post('https://db-server-dun.vercel.app/register', { email, username, password, userType }) //Use this for local'http://localhost:3001/register'
       .then(result => {
         console.log(result);
         // Show success message
