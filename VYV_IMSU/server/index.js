@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const RegisterModel = require('./models/Register');
+const EventModel = require('./models/Event');
 
 const app = express();
 app.use(cors({
@@ -96,6 +97,30 @@ app.post('/login', async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 });
+
+// Add event route
+app.post('/add-event', async (req, res) => {
+    const { title, description, date, time } = req.body;
+    try {
+        const newEvent = await EventModel.create({ title, description, date, time });
+        res.status(201).json({ message: 'Event added successfully', event: newEvent });
+    } catch (err) {
+        console.error('Error adding event:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Get events route
+app.get('/events', async (req, res) => {
+    try {
+        const events = await EventModel.find();
+        res.status(200).json(events);
+    } catch (err) {
+        console.error('Error fetching events:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 
 // Start the local server
