@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import underMaintenanceGif from '../assets/undermaintenance.gif'; 
 
-const Registration = ({ onEventAdded }) => {
+/*const Registration = ({ onEventAdded }) => {
   const [eventDetails, setEventDetails] = useState({
     title: '',
     description: '',
@@ -87,4 +88,18 @@ const Registration = ({ onEventAdded }) => {
   );
 };
 
+export default Registration;
+*/
+function Registration () {
+    return (
+        <div className="maintenance-container">
+            <img 
+                src={underMaintenanceGif} 
+                alt="Under Maintenance GIF" 
+                className="maintenance-gif" 
+            />
+            <div className="maintenance-text">Under Maintenance</div>
+        </div>
+    );
+}
 export default Registration;
